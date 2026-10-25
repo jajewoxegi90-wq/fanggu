@@ -1,0 +1,11 @@
+# 以下文件只在本地用，不发布到网站
+README.md
+部署-*.md
+screenshots/
+访古-杭州.html
+同步到GitHub.command
+*.zip
+
+# 系统垃圾文件
+.DS_Store
+__MACOSX/
