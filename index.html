@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#f7f3eb">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="访古">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="format-detection" content="telephone=no">
+<title>访古 · 文保单位探访记录</title>
+<link rel="manifest" href="manifest.json">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="application-name" content="访古">
+<link rel="icon" href="icons/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="icons/favicon-64.png" sizes="64x64" type="image/png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<link rel="stylesheet" href="vendor/leaflet.css">
+<link rel="stylesheet" href="vendor/MarkerCluster.css">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="brand">
+    <span class="brand-mark">访古</span>
+    <span class="brand-sub">文保单位探访记录</span>
+  </div>
+  <div class="top-actions">
+    <button class="icon-btn" id="btn-locate" title="定位到我的位置" aria-label="定位">◎</button>
+    <button class="icon-btn" id="btn-add" title="添加一处" aria-label="添加">＋</button>
+  </div>
+</header>
+
+<main>
+  <section class="view" id="view-map">
+    <div id="map"></div>
+    <div class="map-hint" id="map-hint"></div>
+  </section>
+
+  <section class="view" id="view-list" hidden>
+    <div class="list-tools">
+      <input id="search" type="search" placeholder="搜名称、地址、年代、类型…" autocomplete="off" enterkeyhint="search">
+      <div class="chips" id="chips-level"></div>
+      <div class="chips" id="chips-visit"></div>
+      <div class="count-line" id="list-count"></div>
+    </div>
+    <div id="list-body"></div>
+  </section>
+
+  <section class="view" id="view-me" hidden>
+    <div id="me-body"></div>
+  </section>
+</main>
+
+<nav class="tabbar">
+  <button class="tab active" data-view="map">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M12 21s7-6.1 7-11a7 7 0 1 0-14 0c0 4.9 7 11 7 11z"></path>
+      <circle cx="12" cy="10" r="2.6"></circle>
+    </svg>
+    <span>地图</span>
+  </button>
+  <button class="tab" data-view="list">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round">
+      <path d="M4 6h16M4 12h16M4 18h16"></path>
+      <circle cx="2" cy="6" r=".6" fill="currentColor"></circle>
+    </svg>
+    <span>名录</span>
+  </button>
+  <button class="tab" data-view="me">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="12" cy="8.2" r="3.6"></circle>
+      <path d="M4.5 20c.9-3.7 3.9-5.6 7.5-5.6s6.6 1.9 7.5 5.6"></path>
+    </svg>
+    <span>我的</span>
+  </button>
+</nav>
+
+<div class="overlay" id="overlay"></div>
+<div class="sheet" id="sheet" role="dialog" aria-modal="true">
+  <div class="sheet-body" id="sheet-body"></div>
+</div>
+
+<script src="vendor/leaflet.js"></script>
+<script src="vendor/leaflet.markercluster.js"></script>
+<script src="data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

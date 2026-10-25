@@ -1,0 +1,22 @@
+{
+  "name": "访古 · 文保单位探访记录",
+  "short_name": "访古",
+  "description": "在地图上查找文物保护单位，记录你的探访足迹。",
+  "id": "./",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#f7f3eb",
+  "theme_color": "#f7f3eb",
+  "lang": "zh-CN",
+  "dir": "ltr",
+  "categories": ["travel", "lifestyle", "navigation"],
+  "icons": [
+    { "src": "icons/icon-144.png", "sizes": "144x144", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-384.png", "sizes": "384x384", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-512-maskable.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}
