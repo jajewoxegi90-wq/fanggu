@@ -33,7 +33,42 @@
 </header>
 
 <main>
-  <section class="view" id="view-map">
+  <!-- 封面 / 主页 -->
+  <section class="view" id="view-home">
+    <div class="home">
+      <div class="home-hills" aria-hidden="true">
+        <svg class="hills" viewBox="0 0 390 150" preserveAspectRatio="none">
+          <path d="M0,96 C48,60 84,80 126,66 C170,52 204,84 248,70 C294,55 336,78 390,64 L390,150 L0,150 Z"
+                fill="#EDF0E9" stroke="#D5DCCF" stroke-width="1" vector-effect="non-scaling-stroke"/>
+          <path d="M0,114 C54,94 92,106 136,98 C182,89 214,110 258,101 C306,91 344,106 390,97 L390,150 L0,150 Z"
+                fill="#E3E8E0" stroke="#CFD7CA" stroke-width="1" vector-effect="non-scaling-stroke"/>
+        </svg>
+        <svg class="waves" viewBox="0 0 390 44" preserveAspectRatio="none">
+          <path d="M0,16 Q24,9 48,16 T96,16 T144,16 T192,16 T240,16 T288,16 T336,16 T384,16" fill="none" stroke="#CFC8B6" stroke-width="1.2" vector-effect="non-scaling-stroke"/>
+          <path d="M0,25 Q24,18 48,25 T96,25 T144,25 T192,25 T240,25 T288,25 T336,25 T384,25" fill="none" stroke="#D9D2C0" stroke-width="1" vector-effect="non-scaling-stroke"/>
+          <path d="M0,34 Q24,27 48,34 T96,34 T144,34 T192,34 T240,34 T288,34 T336,34 T384,34" fill="none" stroke="#E2DCCB" stroke-width="1" vector-effect="non-scaling-stroke"/>
+        </svg>
+      </div>
+
+      <div class="home-seal" aria-hidden="true">古</div>
+
+      <h1 class="home-title">访 古</h1>
+      <div class="home-rule" aria-hidden="true"></div>
+      <p class="home-sub">一城一卷 · 记我足迹</p>
+
+      <button class="home-city" id="city-card" type="button">
+        <span class="hc-main">
+          <span class="hc-name"><span id="home-city-name">杭州</span><span class="hc-region" id="home-city-region">浙江</span></span>
+          <span class="hc-meta" id="home-city-meta">164 处 · 已访 0 处</span>
+        </span>
+        <span class="hc-switch">切换 ›</span>
+      </button>
+
+      <button class="home-enter" id="enter-btn" type="button">进 入 地 图</button>
+    </div>
+  </section>
+
+  <section class="view" id="view-map" hidden>
     <div id="map"></div>
     <div class="map-hint" id="map-hint"></div>
   </section>

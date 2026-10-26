@@ -9,7 +9,7 @@
    改了 app.js / style.css 之后，把下面的版本号 +1，用户下次打开就会更新。
    ===================================================================== */
 
-const VERSION = 'fanggu-v2';
+const VERSION = 'fanggu-v3';
 const SHELL = [
   './index.html',
   './style.css',
@@ -20,6 +20,7 @@ const SHELL = [
   './vendor/leaflet.css',
   './vendor/leaflet.markercluster.js',
   './vendor/MarkerCluster.css',
+  './font/weibei-title.woff2',
   './icons/icon-192.png',
   './icons/icon-512.png'
 ];

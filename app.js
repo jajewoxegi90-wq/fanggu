@@ -297,6 +297,7 @@
   }
 
   function locate() {
+    if (!state.map) return;
     if (!navigator.geolocation) {
       toast('这个浏览器不支持定位，请在地图上点一下手动设置位置');
       state.tapToLocate = true;
@@ -836,16 +837,77 @@
 
   function switchView(v) {
     state.view = v;
-    ['map', 'list', 'me'].forEach((k) => {
+    ['home', 'map', 'list', 'me'].forEach((k) => {
       const el = $('#view-' + k);
       if (el) el.hidden = k !== v;
     });
+    document.body.classList.toggle('on-home', v === 'home');
+
     document.querySelectorAll('.tab').forEach((t) => {
       t.classList.toggle('active', t.dataset.view === v);
     });
-    if (v === 'map' && state.map) {
-      setTimeout(() => state.map.invalidateSize(), 60);
+
+    if (v === 'home') {
+      renderHome();
+      return;
     }
+
+    if (v === 'map') {
+      if (!state.map) {
+        initMap();
+        renderPins();
+        drawMe();
+        fitToSites();
+        const total = state.sites.length;
+        const withGeo = state.sites.filter((x) => x.geo).length;
+        showHint('杭州 ' + total + ' 处 · ' + withGeo + ' 处有坐标 · 点 ◎ 定位自己', 8000);
+      }
+      setTimeout(() => { if (state.map) state.map.invalidateSize(); }, 60);
+    }
+  }
+
+  /* ---------------- 封面 ---------------- */
+
+  function renderHome() {
+    const c = window.WENBAO_CITY || {};
+    const visited = state.sites.filter((s) => state.visits[s.id]).length;
+    const total = state.sites.length;
+    const n = $('#home-city-name');
+    const r = $('#home-city-region');
+    const m = $('#home-city-meta');
+    if (n) n.textContent = c.name || '杭州';
+    if (r) r.textContent = c.province || c.region || '';
+    if (m) m.textContent = total + ' 处 · 已访 ' + visited + ' 处';
+  }
+
+  function showCityPicker() {
+    const regions = window.WENBAO_REGIONS || [];
+    const cur = (window.WENBAO_CITY || {}).id;
+    if (!regions.length) { toast('城市数据还没准备好'); return; }
+
+    const body = regions.map((rg) => {
+      const cities = (rg.cities || []).map((c) =>
+        '<button class="city-row' + (c.id === cur ? ' is-on' : '') + '" data-city="' + esc(c.id) + '"' +
+          (c.id === cur ? '' : ' disabled') + '>' +
+          '<span class="cr-name">' + esc(c.name) + '</span>' +
+          '<span class="cr-note">' + esc(c.note || '') + '</span>' +
+          (c.id === cur ? '<span class="cr-tick">✓ 当前</span>' : '') +
+        '</button>'
+      ).join('');
+      /* 直辖市（省名与市名相同、且只有一个市）不显示省级标题，避免“上海 / 上海” */
+      const direct = (rg.cities || []).length === 1 && rg.cities[0].name === rg.name;
+      return '<div class="province' + (direct ? ' is-direct' : '') + '">' +
+        (direct ? '' : '<div class="province-label">' + esc(rg.name) + '</div>') + cities +
+      '</div>';
+    }).join('');
+
+    openSheet(
+      '<div class="sheet-head">' +
+        '<div class="sheet-title">选择城市</div>' +
+        '<button class="sheet-close" data-act="close">✕</button>' +
+      '</div>' + body +
+      '<p class="tips" style="margin-top:14px">一个城市是一份独立的文保名录。整理好的城市会逐省开放，切换后地图与名录会一起换。</p>'
+    );
   }
 
   function bindEvents() {
@@ -863,6 +925,15 @@
       renderMe();
       toast('已安装到桌面');
     });
+
+    $('#enter-btn').addEventListener('click', () => switchView('map'));
+    $('#city-card').addEventListener('click', showCityPicker);
+
+    const brand = document.querySelector('.brand');
+    if (brand) {
+      brand.style.cursor = 'pointer';
+      brand.addEventListener('click', () => switchView('home'));
+    }
 
     $('#btn-locate').addEventListener('click', locate);
     $('#btn-add').addEventListener('click', showAddForm);
@@ -910,6 +981,13 @@
 
     // 浮层内的动作
     sheetBody.addEventListener('click', (e) => {
+      const cityEl = e.target.closest('[data-city]');
+      if (cityEl) {
+        if (cityEl.disabled) { toast('这个城市还在整理中'); return; }
+        closeSheet();
+        toast('已切换到 ' + (window.WENBAO_CITY || {}).name);
+        return;
+      }
       const el = e.target.closest('[data-act]');
       if (!el) return;
       const act = el.dataset.act;
@@ -1024,18 +1102,10 @@
   }
 
   function start() {
-    initMap();
     bindEvents();
     refresh();
-    fitToSites();
-    drawMe();
-    switchView('map');
-
+    switchView('home');
     registerSW();
-
-    const total = (window.WENBAO_SEED || []).length;
-    const withGeo = (window.WENBAO_SEED || []).filter((s) => s.lat != null).length;
-    showHint('杭州 ' + total + ' 处 · ' + withGeo + ' 处有坐标 · 点 ◎ 定位自己', 8000);
   }
 
   if (document.readyState === 'loading') {

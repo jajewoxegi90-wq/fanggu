@@ -646,3 +646,179 @@ select.inline {
 .leaflet-container { font: inherit; background: #e8e2d6; }
 .leaflet-control-attribution { font-size: 10px; background: rgba(255, 255, 255, .78) !important; }
 .leaflet-control-zoom a { color: var(--ink) !important; }
+
+/* =====================================================================
+   封面 / 主页（江南 · 淡雅）
+   ===================================================================== */
+
+/* 标题字体：Ma Shan Zheng（OFL 开源），只子集了「访」「古」两个字，1.5KB */
+@font-face {
+  font-family: 'WeiBei';
+  src: url('font/weibei-title.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+53E4, U+8BBF;
+}
+
+#view-home {
+  background: linear-gradient(180deg, #FCFAF4 0%, #F8F3E8 48%, #F2ECDE 100%);
+}
+#view-home::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  opacity: .5;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.045'/%3E%3C/svg%3E");
+}
+.home { position: relative; z-index: 1; }
+
+.home {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: calc(env(safe-area-inset-top, 0px) + 24px) 28px calc(env(safe-area-inset-bottom, 0px) + 116px);
+  overflow: hidden;
+}
+
+/* 远山与水波 */
+.home-hills {
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  height: 36%;
+  pointer-events: none;
+}
+.home-hills .hills { position: absolute; left: 0; right: 0; bottom: 0; width: 100%; height: 100%; }
+.home-hills .waves { position: absolute; left: 0; right: 0; bottom: 26px; width: 100%; height: 28px; opacity: .9; }
+
+/* 印章 */
+.home-seal {
+  width: 38px; height: 38px;
+  border-radius: 7px;
+  display: grid; place-items: center;
+  background: linear-gradient(155deg, #A8503E 0%, #8C3E30 100%);
+  color: #FCF8EF;
+  font-family: "Songti SC", "STSong", serif;
+  font-size: 19px;
+  font-weight: 700;
+  letter-spacing: 0;
+  box-shadow: inset 0 0 0 1.5px rgba(252, 248, 239, .55), 0 3px 10px rgba(120, 55, 42, .18);
+  margin-bottom: 30px;
+}
+
+/* 主标题 */
+.home-title {
+  margin: 0;
+  font-family: 'WeiBei', "Songti SC", "STSong", "Noto Serif SC", serif;
+  font-size: 60px;
+  font-weight: 400;
+  letter-spacing: .18em;
+  text-indent: .18em;
+  color: #2C2822;
+  line-height: 1.18;
+}
+
+.home-rule {
+  width: 44px;
+  height: 1px;
+  background: #D2CAB9;
+  margin: 20px 0 16px;
+}
+
+.home-sub {
+  margin: 0 0 46px;
+  font-size: 12.5px;
+  letter-spacing: .28em;
+  text-indent: .28em;
+  color: #948B7C;
+}
+
+/* 城市卡片 */
+.home-city {
+  width: 100%;
+  max-width: 330px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 15px 17px;
+  border-radius: 14px;
+  border: 1px solid #E4DDCC;
+  background: rgba(255, 253, 248, .62);
+  box-shadow: 0 2px 12px rgba(126, 104, 72, .05);
+  text-align: left;
+  transition: background .18s, border-color .18s;
+}
+.home-city:active { background: rgba(255, 253, 248, .92); border-color: #D8CFBB; }
+
+.hc-main { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+.hc-name {
+  font-family: "Songti SC", "STSong", serif;
+  font-size: 21px;
+  font-weight: 600;
+  letter-spacing: .12em;
+  color: #363028;
+  display: flex;
+  align-items: baseline;
+  gap: 7px;
+}
+.hc-region { font-size: 10.5px; letter-spacing: .1em; color: #A79B88; font-weight: 400; }
+.hc-meta { font-size: 11.5px; letter-spacing: .06em; color: #958B7B; }
+.hc-switch { font-size: 12px; letter-spacing: .06em; color: #9C9284; white-space: nowrap; }
+
+/* 进入按钮 */
+.home-enter {
+  width: 100%;
+  max-width: 330px;
+  height: 50px;
+  margin-top: 20px;
+  border-radius: 12px;
+  background: transparent;
+  border: 1.2px solid #4A443A;
+  color: #3A362F;
+  font-size: 14px;
+  letter-spacing: .42em;
+  text-indent: .42em;
+  transition: background .18s, border-color .18s;
+}
+.home-enter:active { background: rgba(58, 54, 47, .07); border-color: #2E2A25; }
+
+/* 封面时隐藏顶栏与底栏 */
+body.on-home .topbar,
+body.on-home .tabbar { display: none; }
+
+/* 城市选择：省 → 市 */
+.province { margin-bottom: 4px; }
+.province-label {
+  font-size: 11px;
+  letter-spacing: .24em;
+  color: #A79B88;
+  padding: 12px 2px 6px;
+}
+
+.province.is-direct { margin-top: 10px; }
+.province.is-direct .city-row { border-top: 1px solid #EFEAE0; }
+
+/* 城市选择列表 */
+.city-row {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 4px;
+  border-bottom: 1px solid #EFEAE0;
+  text-align: left;
+  color: #363028;
+}
+.city-row:last-of-type { border-bottom: 0; }
+.city-row[disabled] { color: #B7AE9E; }
+.city-row.is-on .cr-name { color: #A8503E; }
+.cr-name { font-family: "Songti SC", "STSong", serif; font-size: 17px; letter-spacing: .1em; }
+.cr-note { font-size: 11.5px; color: #A79B88; }
+.cr-tick { margin-left: auto; color: #A8503E; font-size: 13px; }

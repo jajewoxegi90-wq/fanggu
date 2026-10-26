@@ -11,6 +11,37 @@
    字段说明见 README.md。想换城市，改这个文件即可。
    ===================================================================== */
 
+window.WENBAO_CITY = { id: 'hangzhou', name: '杭州', province: '浙江' };
+
+/* 城市按「省 → 市」两级组织。
+   加新城市：在对应省份的 cities 里加一条，做好名录数据后把 ready 改成 true。
+   ready:false 的城市在界面上是灰色的（显示“整理中”）。 */
+window.WENBAO_REGIONS = [
+  {
+    id: 'zhejiang', name: '浙江',
+    cities: [
+      { id: 'hangzhou', name: '杭州', note: '164 处', ready: true },
+      { id: 'shaoxing', name: '绍兴', note: '整理中', ready: false },
+      { id: 'ningbo',   name: '宁波', note: '整理中', ready: false },
+      { id: 'jiaxing',  name: '嘉兴', note: '整理中', ready: false }
+    ]
+  },
+  {
+    id: 'jiangsu', name: '江苏',
+    cities: [
+      { id: 'suzhou',  name: '苏州', note: '整理中', ready: false },
+      { id: 'nanjing', name: '南京', note: '整理中', ready: false },
+      { id: 'yangzhou', name: '扬州', note: '整理中', ready: false }
+    ]
+  },
+  {
+    id: 'shanghai', name: '上海',
+    cities: [
+      { id: 'shanghai', name: '上海', note: '整理中', ready: false }
+    ]
+  }
+];
+
 window.WENBAO_SEED = [
 
   {
